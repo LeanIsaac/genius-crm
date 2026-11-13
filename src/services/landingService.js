@@ -18,6 +18,12 @@ function getLandingById(id) {
   return landing
 }
 
+function getLandingsByClient(client) {
+  return db.landings
+    .filter(l => l.client?.toLowerCase() === client.toLowerCase())
+    .map(landing => ({ ...landing, leadCount: 0 }))
+}
+
 function createLanding(data) {
   const template = templateService.getTemplateById(data.templateId)
 
@@ -73,4 +79,4 @@ function createLead(landingId, data) {
   return lead
 }
 
-module.exports = { getAllLandings, getLandingById, createLanding, getLandingPreview, getLeadsByLanding, createLead }
+module.exports = { getAllLandings, getLandingById, getLandingsByClient, createLanding, getLandingPreview, getLeadsByLanding, createLead }
