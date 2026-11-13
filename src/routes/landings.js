@@ -28,6 +28,39 @@ router.get('/', (req, res, next) => {
 
 /**
  * @swagger
+ * /api/landings/client/{client}:
+ *   get:
+ *     summary: Listar las landing pages de un cliente
+ *     description: Devuelve solo las landings del cliente indicado.
+ *     tags: [Landings]
+ *     parameters:
+ *       - in: path
+ *         name: client
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Nombre del cliente
+ *         example: SuenoSimple
+ *     responses:
+ *       200:
+ *         description: Lista de landings del cliente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Landing'
+ */
+router.get('/client/:client', (req, res, next) => {
+  try {
+    res.json(landingService.getLandingsByClient(req.params.client))
+  } catch (err) {
+    next(err)
+  }
+})
+
+/**
+ * @swagger
  * /api/landings/{id}:
  *   get:
  *     summary: Obtener una landing por ID
